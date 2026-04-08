@@ -20,12 +20,15 @@ I'm not responsible for any compromised data.
 1. Configure the environment variables in a `.env` file or use them directly inside your `docker-compose.yml`:
    ```bash
    SERVER_API_TOKEN=your_secure_token_here
+   ALIAS_PROVIDER=<your_provider> # available options: mxroute, purelymail
 
+   # "mxroute" ALIAS_PROVIDER
    MXROUTE_SERVER=<your_server>.mxrouting.net
    MXROUTE_USERNAME=<control_pane_username>
    MXROUTE_API_KEY=<control_pane_api_key>
 
-   DEBUG=false # Optional for debugging the server
+   # "purelymail" ALIAS_PROVIDER
+   PURELYMAIL_API_KEY=<api_key>
 
    SERVER_ADDRESS=http://bitwarden-alias-provider-server:6123 # Optional for web app
    ```

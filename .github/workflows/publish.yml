@@ -107,5 +107,5 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: mxroute-bitwarden-extension
+          name: bitwarden-alias-provider-extension
           path: web/extension.zip
