@@ -1,4 +1,5 @@
 .venv
 .env
+.python-version
 
 *.egg-info

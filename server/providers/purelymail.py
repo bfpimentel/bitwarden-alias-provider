@@ -1,5 +1,4 @@
 import requests
-import json
 
 from flask import jsonify
 from providers.provider import Provider
@@ -24,7 +23,7 @@ class PurelymailProvider(Provider):
             response = requests.post(endpoint, headers=headers, json=body)
             response.raise_for_status()
 
-            return {"data": {"email": f"{alias}@{domain}"}}
+            return {"data": {"email": f"{alias}@{domain}"}}, response.status_code
         except ValueError as e:
             return jsonify({"error": str(e)}), 412
         except requests.exceptions.RequestException as e:
@@ -33,19 +32,16 @@ class PurelymailProvider(Provider):
     def get(self, domain):
         try:
             result = self._get_list(domain)
-            return jsonify(result), response.status_code
+            return jsonify(result), 200
         except requests.exceptions.RequestException as e:
             return jsonify({"error": str(e)}), 500
 
     def delete(self, email):
-        try:
-            _, domain = email.split("@")
-        except ValueError:
-            return jsonify({"error": "Invalid email format."}), 400
-
         endpoint, headers = self._build_request("v0/deleteRoutingRule")
 
         try:
+            _, domain = email.split("@")
+
             existing_aliases = self._get_list(domain)
             id_for_deletion = next(
                 (alias for alias in existing_aliases if alias["email"] == email), None
@@ -56,7 +52,9 @@ class PurelymailProvider(Provider):
             )
             response.raise_for_status()
 
-            return jsonify({"message": f"{email} deleted."}), response.status_code
+            return jsonify({"message": f"{email} deleted."}), 200
+        except ValueError:
+            return jsonify({"error": "Invalid email format."}), 400
         except requests.exceptions.RequestException as e:
             return jsonify({"error": str(e)}), 500
 
@@ -73,7 +71,6 @@ class PurelymailProvider(Provider):
         endpoint, headers = self._build_request("v0/listRoutingRules")
 
         response = requests.post(endpoint, headers=headers, json={})
-        response.raise_for_status()
 
         data = response.json()["result"]["rules"]
 

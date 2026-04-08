@@ -132,4 +132,4 @@ if __name__ == "__main__":
                 "ALIAS_PROVIDER should be set to one of the options: mxroute, purelymail"
             )
 
-    app.run(host="0.0.0.0", port=6123, debug=True, threaded=True)
+    app.run(host="0.0.0.0", port=6123, debug=False)

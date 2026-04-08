@@ -1,6 +1,6 @@
 # Bitwarden Alias Provider
 
-![Docker Image Version (latest semver)](https://img.shields.io/github/v/tag/bfpimentel/bitwarden-alias-provider-server?label=latest&logo=github&style=flat-square)
+![Docker Image Version (latest semver)](https://img.shields.io/github/v/tag/bfpimentel/bitwarden-alias-provider?label=latest&logo=github&style=flat-square)
 ![GitHub last commit](https://img.shields.io/github/last-commit/bfpimentel/bitwarden-alias-provider?logo=github&style=flat-square)
 
 This service mimics the Addy.io API to allow Bitwarden to generate email aliases directly on your email providers. It uses `coolname` for human-readable aliases. These services are supported at this moment:
@@ -32,7 +32,7 @@ I'm not responsible for any compromised data.
 
    SERVER_ADDRESS=http://bitwarden-alias-provider-server:6123 # Optional for web app
    ```
-2. Grab the example docker-compose file from [here](./docker-compose.yml).
+2. Grab the example docker-compose file from [here](./docker-compose.example.yml).
 3. Start the service:
    ```bash
    docker-compose up -d
@@ -111,4 +111,4 @@ This project provides a helper browser extension (Chrome & Firefox) that allows 
 The only method that I support right now is using a Nix shell.
 
 1. Enter the development shell: `nix develop`
-2. Run services: `podman compose up`
+2. Run services: `docker compose up`

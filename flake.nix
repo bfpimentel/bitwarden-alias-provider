@@ -32,6 +32,10 @@
             ];
 
             shellHook = /* bash */ ''
+              if [ -f ".env" ]; then
+                source .env
+              fi
+
               cd server
 
               if [ ! -d ".venv" ]; then

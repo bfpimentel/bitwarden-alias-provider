@@ -22,7 +22,7 @@ class MXRouteProvider(Provider):
             response = requests.post(endpoint, headers=headers, json=body)
             response.raise_for_status()
 
-            return {"data": {"email": f"{alias}@{domain}"}}
+            return {"data": {"email": f"{alias}@{domain}"}}, response.status_code
         except ValueError as e:
             return jsonify({"error": str(e)}), 412
         except requests.exceptions.RequestException as e:
