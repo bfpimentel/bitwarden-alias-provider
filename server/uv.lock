@@ -3,9 +3,9 @@ revision = 3
 requires-python = ">=3.12"
 
 [[package]]
-name = "bitwarden-mxroute-server"
+name = "bitwarden-alias-provider-server"
 version = "0.1.0"
-source = { virtual = "." }
+source = { editable = "." }
 dependencies = [
     { name = "coolname" },
     { name = "flask" },

@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "MXRoute Bitwarden Helper",
+  "name": "Bitwarden Alias Provider",
   "version": "0.0.0",
-  "description": "Helper extension for MXRoute Bitwarden Plugin",
+  "description": "Extension for Bitwarden Alias Provider",
   "action": {
     "default_popup": "index.html",
     "default_icon": "mxroute.png"
@@ -12,10 +12,6 @@
     "48": "mxroute.png",
     "128": "mxroute.png"
   },
-  "permissions": [
-    "storage"
-  ],
-  "host_permissions": [
-    "<all_urls>"
-  ]
+  "permissions": ["storage"],
+  "host_permissions": ["<all_urls>"]
 }

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { X, Copy, Check } from "lucide-react";
-import { loadOptionsConfig, generateOptionsString } from "../utils/mxroute";
+import { loadOptionsConfig, generateOptionsString } from "../utils/alias";
 
 interface OptionsPopupProps {
   isOpen: boolean;
@@ -8,7 +8,6 @@ interface OptionsPopupProps {
 }
 
 export function OptionsPopup({ isOpen, onClose }: OptionsPopupProps) {
-  // Load saved config
   const savedConfig = loadOptionsConfig();
 
   const [domain, setDomain] = useState(savedConfig.domain || "");
@@ -18,15 +17,10 @@ export function OptionsPopup({ isOpen, onClose }: OptionsPopupProps) {
   const [suffix, setSuffix] = useState(savedConfig.suffix || "");
   const [slugLength, setSlugLength] = useState(savedConfig.slugLength || "2");
   const [hexLength, setHexLength] = useState(savedConfig.hexLength || "6");
-  const [aliasSeparator, setAliasSeparator] = useState(
-    savedConfig.aliasSeparator || "_",
-  );
-  const [slugSeparator, setSlugSeparator] = useState(
-    savedConfig.slugSeparator || "_",
-  );
+  const [aliasSeparator, setAliasSeparator] = useState(savedConfig.aliasSeparator || "_");
+  const [slugSeparator, setSlugSeparator] = useState(savedConfig.slugSeparator || "_");
   const [copied, setCopied] = useState(false);
 
-  // Save config on change
   useEffect(() => {
     const config = {
       domain,
@@ -39,7 +33,7 @@ export function OptionsPopup({ isOpen, onClose }: OptionsPopupProps) {
       aliasSeparator,
       slugSeparator,
     };
-    localStorage.setItem("mxroute_options_config", JSON.stringify(config));
+    localStorage.setItem("bitwarden_alias_config", JSON.stringify(config));
   }, [
     domain,
     destination,
@@ -76,13 +70,8 @@ export function OptionsPopup({ isOpen, onClose }: OptionsPopupProps) {
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-lg shadow-xl w-full max-w-lg overflow-y-auto max-h-[90vh]">
         <div className="flex justify-between items-center p-4 border-b">
-          <h2 className="text-xl font-bold text-gray-800">
-            Generate Options String
-          </h2>
-          <button
-            onClick={onClose}
-            className="text-gray-500 hover:text-gray-700"
-          >
+          <h2 className="text-xl font-bold text-gray-800">Generate Options String</h2>
+          <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
             <X className="w-6 h-6" />
           </button>
         </div>
@@ -90,9 +79,7 @@ export function OptionsPopup({ isOpen, onClose }: OptionsPopupProps) {
         <div className="p-6 space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div className="col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Domain *
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Domain *</label>
               <input
                 type="text"
                 value={domain}
@@ -103,9 +90,7 @@ export function OptionsPopup({ isOpen, onClose }: OptionsPopupProps) {
             </div>
 
             <div className="col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Destination *
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Destination *</label>
               <input
                 type="text"
                 value={destination}
@@ -116,9 +101,7 @@ export function OptionsPopup({ isOpen, onClose }: OptionsPopupProps) {
             </div>
 
             <div className="col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Template
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Template</label>
               <input
                 type="text"
                 value={template}
@@ -126,15 +109,11 @@ export function OptionsPopup({ isOpen, onClose }: OptionsPopupProps) {
                 className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 outline-none"
                 placeholder="<slug><hex>"
               />
-              <p className="text-xs text-gray-500 mt-1">
-                Allowed: &lt;slug&gt;, &lt;hex&gt;
-              </p>
+              <p className="text-xs text-gray-500 mt-1">Allowed: &lt;slug&gt;, &lt;hex&gt;</p>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Prefix
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Prefix</label>
               <input
                 type="text"
                 value={prefix}
@@ -144,9 +123,7 @@ export function OptionsPopup({ isOpen, onClose }: OptionsPopupProps) {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Suffix
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Suffix</label>
               <input
                 type="text"
                 value={suffix}
@@ -156,9 +133,7 @@ export function OptionsPopup({ isOpen, onClose }: OptionsPopupProps) {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Slug Length
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Slug Length</label>
               <input
                 type="number"
                 value={slugLength}
@@ -168,9 +143,7 @@ export function OptionsPopup({ isOpen, onClose }: OptionsPopupProps) {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Hex Length
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Hex Length</label>
               <input
                 type="number"
                 value={hexLength}
@@ -192,9 +165,7 @@ export function OptionsPopup({ isOpen, onClose }: OptionsPopupProps) {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Slug Separator
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Slug Separator</label>
               <input
                 type="text"
                 value={slugSeparator}

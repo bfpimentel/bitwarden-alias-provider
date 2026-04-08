@@ -2,7 +2,11 @@ import { useState, useEffect } from "react";
 import { ForwarderItem } from "./components/ForwarderItem";
 import { OptionsPopup } from "./components/OptionsPopup";
 import { Settings, Sliders } from "lucide-react";
-import { loadOptionsConfig, generateOptionsString, generateStaticOptionsString } from "./utils/mxroute";
+import {
+  loadOptionsConfig,
+  generateOptionsString,
+  generateStaticOptionsString,
+} from "./utils/alias";
 
 interface Forwarder {
   alias: string;
@@ -17,13 +21,13 @@ function App() {
   const [error, setError] = useState<string | null>(null);
 
   const [token, setToken] = useState<string>(
-    () => localStorage.getItem("mxroute_api_token") || "",
+    () => localStorage.getItem("bitwarden_alias_server_api_token") || "",
   );
   const [serverUrl, setServerUrl] = useState<string>(
-    () => localStorage.getItem("mxroute_server_url") || "http://localhost:6123",
+    () => localStorage.getItem("bitwarden_alias_server_server_url") || "http://localhost:6123",
   );
   const [showTokenInput, setShowTokenInput] = useState(
-    () => !localStorage.getItem("mxroute_api_token"),
+    () => !localStorage.getItem("bitwarden_alias_server_api_token"),
   );
   const [showOptionsPopup, setShowOptionsPopup] = useState(false);
   const [staticAlias, setStaticAlias] = useState("");
@@ -39,8 +43,8 @@ function App() {
   const [configError, setConfigError] = useState<string | null>(null);
 
   const isDirty =
-    serverUrl !== (localStorage.getItem("mxroute_server_url") || "") ||
-    token !== (localStorage.getItem("mxroute_api_token") || "");
+    serverUrl !== (localStorage.getItem("bitwarden_alias_server_url") || "") ||
+    token !== (localStorage.getItem("bitwarden_alias_server_api_token") || "");
 
   useEffect(() => {
     setTestSuccess(false);
@@ -48,8 +52,8 @@ function App() {
   }, [serverUrl, token]);
 
   const handleSaveToken = () => {
-    localStorage.setItem("mxroute_api_token", token);
-    localStorage.setItem("mxroute_server_url", serverUrl);
+    localStorage.setItem("bitwarden_alias_server_api_token", token);
+    localStorage.setItem("bitwarden_alias_server_url", serverUrl);
     setShowTokenInput(false);
   };
 
@@ -187,8 +191,7 @@ function App() {
         headers: getHeaders(),
       });
       if (!res.ok) {
-        if (res.status === 401)
-          throw new Error("Unauthorized: Invalid API Token");
+        if (res.status === 401) throw new Error("Unauthorized: Invalid API Token");
         throw new Error(`Error: ${res.statusText}`);
       }
       const data = await res.json();
@@ -214,13 +217,10 @@ function App() {
     if (!confirm(`Are you sure you want to delete ${email}?`)) return;
 
     try {
-      const res = await fetch(
-        `${serverUrl}/delete/${encodeURIComponent(email)}`,
-        {
-          method: "DELETE",
-          headers: getHeaders(),
-        },
-      );
+      const res = await fetch(`${serverUrl}/delete/${encodeURIComponent(email)}`, {
+        method: "DELETE",
+        headers: getHeaders(),
+      });
 
       if (!res.ok) {
         const data = await res.json();
@@ -241,9 +241,7 @@ function App() {
     <div className="min-h-screen bg-gray-100 p-8">
       <div className="max-w-2xl mx-auto">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-800">
-            MXRoute Bitwarden Plugin
-          </h1>
+          <h1 className="text-3xl font-bold text-gray-800">Bitwarden Alias Provider</h1>
           <div className="flex gap-2">
             <button
               onClick={() => setShowOptionsPopup(true)}
@@ -262,21 +260,14 @@ function App() {
           </div>
         </div>
 
-        <OptionsPopup
-          isOpen={showOptionsPopup}
-          onClose={() => setShowOptionsPopup(false)}
-        />
+        <OptionsPopup isOpen={showOptionsPopup} onClose={() => setShowOptionsPopup(false)} />
 
         {showTokenInput && (
           <div className="bg-white p-6 rounded-lg shadow-md mb-8 border-l-4 border-blue-500">
-            <h2 className="text-lg font-semibold text-gray-800 mb-4">
-              API Configuration
-            </h2>
+            <h2 className="text-lg font-semibold text-gray-800 mb-4">API Configuration</h2>
             <div className="flex flex-col gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Server URL
-                </label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Server URL</label>
                 <input
                   type="text"
                   placeholder="http://localhost:6123"
@@ -298,15 +289,9 @@ function App() {
                     className="flex-1 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                   <button
-                    onClick={
-                      isDirty && !testSuccess
-                        ? handleTestConfig
-                        : handleSaveToken
-                    }
+                    onClick={isDirty && !testSuccess ? handleTestConfig : handleSaveToken}
                     disabled={
-                      (!isDirty &&
-                        !testSuccess &&
-                        serverUrl === "http://localhost:6123") ||
+                      (!isDirty && !testSuccess && serverUrl === "http://localhost:6123") ||
                       testLoading ||
                       !isDirty
                     }
@@ -340,10 +325,7 @@ function App() {
           </div>
         )}
 
-        <form
-          onSubmit={fetchList}
-          className="bg-white p-6 rounded-lg shadow-md mb-8 flex gap-4"
-        >
+        <form onSubmit={fetchList} className="bg-white p-6 rounded-lg shadow-md mb-8 flex gap-4">
           <input
             type="text"
             placeholder="Enter domain (e.g. example.com)"
@@ -369,9 +351,7 @@ function App() {
         </form>
 
         <div className="bg-white p-6 rounded-lg shadow-md mb-8">
-          <h2 className="text-lg font-semibold text-gray-800 mb-4">
-            Create Static Alias
-          </h2>
+          <h2 className="text-lg font-semibold text-gray-800 mb-4">Create Static Alias</h2>
           <div className="flex gap-4">
             <input
               type="text"

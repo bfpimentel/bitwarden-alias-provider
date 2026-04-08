@@ -1,11 +1,12 @@
-# MXRoute Bitwarden Alias Plugin
+# Bitwarden Alias Provider
 
-![Docker Image Version (latest semver)](https://img.shields.io/github/v/tag/bfpimentel/bitwarden-mxroute?label=latest&logo=github&style=flat-square)
-![GitHub last commit](https://img.shields.io/github/last-commit/bfpimentel/bitwarden-mxroute?logo=github&style=flat-square)
+![Docker Image Version (latest semver)](https://img.shields.io/github/v/tag/bfpimentel/bitwarden-alias-provider-server?label=latest&logo=github&style=flat-square)
+![GitHub last commit](https://img.shields.io/github/last-commit/bfpimentel/bitwarden-alias-provider?logo=github&style=flat-square)
 
-A Bitwarden plugin (via "Addy.io" integration) for MXRoute.
+This service mimics the Addy.io API to allow Bitwarden to generate email aliases directly on your email providers. It uses `coolname` for human-readable aliases. These services are supported at this moment:
 
-This service mimics the Addy.io API to allow Bitwarden to generate email aliases directly on your MXRoute domains. It uses `coolname` for human-readable aliases.
+- Purelymail
+- MXRoute
 
 ## ⚠️ Disclaimer
 
@@ -26,7 +27,7 @@ I'm not responsible for any compromised data.
 
    DEBUG=false # Optional for debugging the server
 
-   SERVER_ADDRESS=http://bitwarden-mxroute-server:6123 # Optional for web app
+   SERVER_ADDRESS=http://bitwarden-alias-provider-server:6123 # Optional for web app
    ```
 2. Grab the example docker-compose file from [here](./docker-compose.yml).
 3. Start the service:
@@ -86,7 +87,7 @@ This project includes a web interface for managing aliases and an API for direct
 
 This project provides a helper browser extension (Chrome & Firefox) that allows you to easily generate option strings and manage your aliases without opening the full web app.
 
-1.  **Download:** Download the `mxroute-bitwarden-extension.zip` from the latest [GitHub Actions run](https://github.com/bfpimentel/bitwarden-mxroute/actions)
+1.  **Download:** Download the `bitwarden-alias-provider-extension.zip` from the latest [GitHub Actions run](https://github.com/bfpimentel/bitwarden-alias-provider/actions)
 2.  **Unzip:** Extract the zip file to a folder
 
 ### Chromium Browsers
@@ -107,4 +108,4 @@ This project provides a helper browser extension (Chrome & Firefox) that allows 
 The only method that I support right now is using a Nix shell.
 
 1. Enter the development shell: `nix develop`
-2. Run services: `process-compose up`
+2. Run services: `podman compose up`

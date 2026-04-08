@@ -3,10 +3,9 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "bitwarden-mxroute-server"
+name = "bitwarden-alias-provider-server"
 version = "0.1.0"
-description = "Bitwarden MXRoute Alias Generator Plugin"
-readme = "README.md"
+description = "Bitwarden Alias Provider Server"
 requires-python = ">=3.12"
 dependencies = [
     "coolname>=4.0.0",
