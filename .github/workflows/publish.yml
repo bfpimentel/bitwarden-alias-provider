@@ -99,13 +99,8 @@ jobs:
       - name: Build
         working-directory: ./web
         run: bun run build
-      - name: Package Extension
-        working-directory: ./web
-        run: |
-          cd dist
-          zip -r ../extension.zip .
-      - name: Upload Artifact
+      - name: Upload Extension
         uses: actions/upload-artifact@v4
         with:
           name: bitwarden-alias-provider-extension
-          path: web/extension.zip
+          path: web/dist
